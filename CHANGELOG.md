@@ -1,5 +1,39 @@
 # Changelog
 
+## [2.3.0] - October 2026
+
+**Summary:** Tab bar overflow counter, tab layout rework, and a complete Chinese translation aligned with Windows File Explorer terminology.
+
+- [New Features](#new-features-2-3-0)
+  - [Tab Overflow Counter](#tab-overflow-counter)
+- [Improvements](#improvements-2-3-0)
+  - [Tab Bar Layout](#tab-bar-layout)
+  - [Chinese Translation](#chinese-translation)
+
+### New Features
+
+#### Tab Overflow Counter
+
+When too many tabs are open to fit the header, the tab bar now collapses the extra tabs into a counter badge instead of clipping them.
+
+- **Counter badge**: a bordered box at the right end of the tab bar shows the total number of open tabs;
+- **Hidden tab list**: clicking the badge opens a dropdown listing the tabs that do not fit, each with its name and full path, and the list scrolls when long;
+- **New tab stays on top**: the dropdown always offers New tab (with its `Ctrl+T` shortcut) pinned above the hidden tab list;
+- **Order preserved**: tabs fill the header by the time they were opened, and the first (oldest) tab is always fully visible and clickable.
+
+### Improvements
+
+#### Tab Bar Layout
+
+- The first tab no longer overlaps with toolbar buttons: the command palette button moved from the left end of the header into the right-side action group;
+- Tab titles now truncate with an ellipsis instead of being hard-clipped, and the close button no longer overlaps the title.
+
+#### Chinese Translation
+
+- Aligned terminology with Windows File Explorer: 驱动器 (drives), 回收站 (recycle bin), 主文件夹 (home folder), 右键菜单 (context menu), 文件夹 (folders) in UI strings;
+- Fixed mistranslations and machine-translation artifacts across ~370 strings, translated the remaining untranslated strings, and localized the settings search keywords;
+- Added spacing between CJK text and digits, unified empty-state wording, and rewrote confirmation prompts in natural Chinese.
+
 ## [2.2.0] - July 2026
 
 **Summary:** System clipboard integration with other apps, box selection, linked split view, link handling, password-protected ZIP archives, native Properties on Windows, extension API expansions, Hebrew language support, and navigator polish.
