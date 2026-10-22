@@ -215,6 +215,7 @@ onBeforeUnmount(() => {
       <div class="window-toolbar-extension-embed-teleport-target" />
       <div class="window-toolbar-primary-teleport-target" />
       <Spacer class="window-toolbar-spacer" />
+      <div class="window-toolbar-tab-actions-teleport-target" />
       <div class="window-toolbar-secondary-teleport-target" />
       <div class="window-toolbar-tertiary">
         <LanShareToolbarButton v-if="shouldShowNavigatorToolbarExtras" />
@@ -255,6 +256,17 @@ onBeforeUnmount(() => {
     min-width: 0;
     flex: 1 1 auto;
   }
+}
+
+.window-toolbar-tab-actions-teleport-target {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.window-toolbar-tab-actions-teleport-target:empty {
+  display: none;
 }
 
 .window-toolbar-secondary-teleport-target {

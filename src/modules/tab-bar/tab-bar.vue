@@ -39,6 +39,14 @@ const shortcutsStore = useShortcutsStore();
 const tabGroupCount = computed(() => workspacesStore.currentWorkspace?.tabGroups?.length ?? 0);
 const teleportDisabled = computed(() => !props.teleportTarget);
 const teleportTo = computed(() => props.teleportTarget || 'body');
+
+/**
+ * The add-tab / overflow controls live next to the navigator options button so
+ * the tab strip is never shortened by them. The slot width stays constant when
+ * the controls swap, otherwise the tab strip width would feed back into the
+ * overflow calculation and flip the controls back and forth.
+ */
+const TAB_BAR_ACTIONS_TELEPORT_TARGET = '.window-toolbar-tab-actions-teleport-target';
 const { openNewTabGroup, openTabGroup, closeTabGroup, setTabs } = workspacesStore;
 
 const previewEnabled = ref(true);
@@ -151,41 +159,48 @@ onMounted(() => {
         </div>
       </div>
 
-      <Tooltip>
-        <TooltipTrigger as-child>
-          <Button
-            class="tab-bar__add-tab-button"
-            variant="ghost"
-            size="xs"
-            :aria-label="t('tabs.newTab')"
-            @click="openNewTabGroup()"
-          >
-            <PlusIcon :size="14" />
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent>
-          <div class="tab-bar__tooltip">
-            <div class="tab-bar__tooltip-row">
-              {{ t('tabs.newTab') }}
-              <ContextMenuShortcut>{{ shortcutsStore.getShortcutLabel('openNewTab') }}</ContextMenuShortcut>
-            </div>
-            <div class="tab-bar__tooltip-row">
-              {{ t('shortcuts.duplicateCurrentTab') }}
-              <ContextMenuShortcut>{{ shortcutsStore.getShortcutLabel('duplicateCurrentTab') }}</ContextMenuShortcut>
-            </div>
-          </div>
-        </TooltipContent>
-      </Tooltip>
+      <Teleport
+        :to="TAB_BAR_ACTIONS_TELEPORT_TARGET"
+        :disabled="teleportDisabled"
+      >
+        <div class="tab-bar__actions">
+          <Tooltip v-if="!isOverflowing">
+            <TooltipTrigger as-child>
+              <Button
+                class="tab-bar__add-tab-button"
+                variant="ghost"
+                size="xs"
+                :aria-label="t('tabs.newTab')"
+                @click="openNewTabGroup()"
+              >
+                <PlusIcon :size="14" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <div class="tab-bar__tooltip">
+                <div class="tab-bar__tooltip-row">
+                  {{ t('tabs.newTab') }}
+                  <ContextMenuShortcut>{{ shortcutsStore.getShortcutLabel('openNewTab') }}</ContextMenuShortcut>
+                </div>
+                <div class="tab-bar__tooltip-row">
+                  {{ t('shortcuts.duplicateCurrentTab') }}
+                  <ContextMenuShortcut>{{ shortcutsStore.getShortcutLabel('duplicateCurrentTab') }}</ContextMenuShortcut>
+                </div>
+              </div>
+            </TooltipContent>
+          </Tooltip>
 
-      <TabBarOverflowMenu
-        v-if="isOverflowing"
-        v-model:open="isOverflowMenuOpen"
-        :tab-groups="tabGroups"
-        :active-tab-group="workspacesStore.currentTabGroup"
-        :hidden-tab-group-indexes="hiddenTabGroupIndexes"
-        @select="handleOverflowTabSelect"
-        @add-tab="handleOverflowAddTab"
-      />
+          <TabBarOverflowMenu
+            v-else
+            v-model:open="isOverflowMenuOpen"
+            :tab-groups="tabGroups"
+            :active-tab-group="workspacesStore.currentTabGroup"
+            :hidden-tab-group-indexes="hiddenTabGroupIndexes"
+            @select="handleOverflowTabSelect"
+            @add-tab="handleOverflowAddTab"
+          />
+        </div>
+      </Teleport>
     </div>
   </Teleport>
 </template>
@@ -228,6 +243,15 @@ onMounted(() => {
 .tab-bar__add-tab-button {
   flex-shrink: 0;
   color: hsl(var(--muted-foreground));
+}
+
+.tab-bar__actions {
+  display: flex;
+  width: 32px;
+  height: 28px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
 }
 
 .tab-bar__tooltip {
