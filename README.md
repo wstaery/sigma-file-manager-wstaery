@@ -2,6 +2,7 @@
 
 - v2 moved from beta to stable stage
 - v2 became the main branch
+- **v2.3.0: tab bar overflow counter, tab layout rework, and a Chinese translation aligned with Windows File Explorer terminology**
 
 <h1>
   <img valign="middle" src="https://github.com/aleksey-hoffman/sigma-file-manager/raw/main/.github/media/logo-1024x1024.png" width="64px">
@@ -14,6 +15,8 @@ Designed, developed, and maintained by [Aleksey Hoffman](https://github.com/alek
 
 <img src="./.github/media/sigma-file-manager-main.png">
 
+English | [简体中文](./README.zh-CN.md)
+
 ## Community links
 [Discord](https://discord.gg/sxZTztFVwX) | [Reddit](https://www.reddit.com/r/SigmaFileManager) | [YouTube](https://www.youtube.com/@sigma-dev) | [X (Twitter)](https://twitter.com/sigma__dev) | [Telegram](https://t.me/sigma_devs)
 <br>Thanks to everyone who has been sharing this project with others!
@@ -25,7 +28,7 @@ Designed, developed, and maintained by [Aleksey Hoffman](https://github.com/alek
 #### Major features:
 
 - **Smart global search:** Finds files and folders in seconds (searches full `1TB` drive in ~2 seconds). Its typo correction system handles typos, wrong case, wrong word order, missing words, missing symbols, and missing file extension.
-- **Tabs:** Keep multiple directories open and switch between them instantly.
+- **Tabs:** Keep multiple directories open and switch between them instantly. When too many tabs are open to fit the header, a counter badge at the right end of the tab bar shows the total number of tabs and lists the extra tabs in a scrollable dropdown.
 - **Split view:** Any tab can be splitted into 2 panes which you can navigate indipendently and transfer files between them easily.
 - **Extensions and marketplace:** Install extensions from the built-in marketplace or local folders. Extensions can add commands, pages, shortcuts, settings, and more.
 - **Default file manager:** On Windows, Sigma can replace File Explorer for most everyday file actions.
@@ -42,8 +45,18 @@ Designed, developed, and maintained by [Aleksey Hoffman](https://github.com/alek
 - **In-app updates:** Download and install updates directly from update notifications.
 - **Quick view:** Instantly preview images, videos, audio, PDFs, and text files with `Space`, then move through files without opening external apps.
 - **WSL drives:** On Windows, browse detected WSL distributions directly in the navigator.
-- **Localization:** The app has translations for all most used languages. 
+- **Localization:** The app has translations for all most used languages, including a Chinese translation aligned with Windows File Explorer terminology. 
 - And more. Extensions provide additional features like video downloading (1000+ sites supported, including YouTube, Twitch, etc.), media converter, image size optimizer, etc.
+
+## What's new in this fork (v2.3.0)
+
+This repository builds on [aleksey-hoffman/sigma-file-manager](https://github.com/aleksey-hoffman/sigma-file-manager) with the following improvements:
+
+- **Tab bar overflow counter:** when tabs no longer fit the header, a bordered counter badge at the right end shows the total number of open tabs. Tabs that do not fit collapse into its dropdown (with a scrollable list) in the order they were opened, and clicking one switches to it.
+- **Tab bar layout rework:** the first (oldest) tab is always fully visible and clickable; tab titles truncate with an ellipsis instead of being clipped; the command palette button moved from the left end of the window toolbar into the right-side action group so it no longer overlaps the first tab.
+- **Chinese translation:** aligned terminology with Windows File Explorer (驱动器, 回收站, 主文件夹, 右键菜单, 文件夹), fixed ~370 mistranslations and machine-translation artifacts, translated all remaining strings, and localized the settings search keywords.
+
+See [CHANGELOG.md](./CHANGELOG.md) for details.
 
 ## Code signing policy
 
@@ -106,16 +119,15 @@ The funding will be used for funding the development of this and my other big pr
 ## Download & install
 
 <p>
- <a href="https://github.com/aleksey-hoffman/sigma-file-manager#download--install"><img src="https://img.shields.io/github/downloads/aleksey-hoffman/sigma-file-manager/total?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1kb3dubG9hZC1pY29uIGx1Y2lkZS1kb3dubG9hZCI+PHBhdGggZD0iTTEyIDE1VjMiLz48cGF0aCBkPSJNMjEgMTV2NGEyIDIgMCAwIDEtMiAySDVhMiAyIDAgMCAxLTItMnYtNCIvPjxwYXRoIGQ9Im03IDEwIDUgNSA1LTUiLz48L3N2Zz4=&color=%2370b59d"></a>
- <a href=""><img src="https://img.shields.io/github/v/release/aleksey-hoffman/sigma-file-manager?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1yb2NrZXQtaWNvbiBsdWNpZGUtcm9ja2V0Ij48cGF0aCBkPSJNMTIgMTV2NXMzLjAzLS41NSA0LTJjMS4wOC0xLjYyIDAtNSAwLTUiLz48cGF0aCBkPSJNNC41IDE2LjVjLTEuNSAxLjI2LTIgNS0yIDVzMy43NC0uNSA1LTJjLjcxLS44NC43LTIuMTMtLjA5LTIuOTFhMi4xOCAyLjE4IDAgMCAwLTIuOTEtLjA5Ii8%2BPHBhdGggZD0iTTkgMTJhMjIgMjIgMCAwIDEgMi0zLjk1QTEyLjg4IDEyLjg4IDAgMCAxIDIyIDJjMCAyLjcyLS43OCA3LjUtNiAxMWEyMi40IDIyLjQgMCAwIDEtNCAyeiIvPjxwYXRoIGQ9Ik05IDEySDRzLjU1LTMuMDMgMi00YzEuNjItMS4wOCA1IC4wNSA1IC4wNSIvPjwvc3ZnPg%3D%3D&label=release&color=%23a6abe3"></a>
- <a href=""><img src="https://img.shields.io/winget/v/AlekseyHoffman.SigmaFileManager?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1zcXVhcmUtdGVybWluYWwtaWNvbiBsdWNpZGUtc3F1YXJlLXRlcm1pbmFsIj48cGF0aCBkPSJtNyAxMSAyLTItMi0yIi8+PHBhdGggZD0iTTExIDEzaDQiLz48cmVjdCB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHg9IjMiIHk9IjMiIHJ4PSIyIiByeT0iMiIvPjwvc3ZnPg==&color=%23a6abe3&label=release%20on%20winget"></a>
+ <a href="https://github.com/wstaery/sigma-file-manager-wstaery/releases"><img src="https://img.shields.io/github/downloads/wstaery/sigma-file-manager-wstaery/total?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1kb3dubG9hZC1pY29uIGx1Y2lkZS1kb3dubG9hZCI+PHBhdGggZD0iTTEyIDE1VjMiLz48cGF0aCBkPSJNMjEgMTV2NGEyIDIgMCAwIDEtMiAySDVhMiAyIDAgMCAxLTItMnYtNCIvPjxwYXRoIGQ9Im03IDEwIDUgNSA1LTUiLz48L3N2Zz4=&color=%2370b59d"></a>
+ <a href="https://github.com/wstaery/sigma-file-manager-wstaery/releases/latest"><img src="https://img.shields.io/github/v/release/wstaery/sigma-file-manager-wstaery?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1yb2NrZXQtaWNvbiBsdWNpZGUtcm9ja2V0Ij48cGF0aCBkPSJNMTIgMTV2NXMzLjAzLS41NSA0LTJjMS4wOC0xLjYyIDAtNSAwLTUiLz48cGF0aCBkPSJNNC41IDE2LjVjLTEuNSAxLjI2LTIgNS0yIDVzMy43NC0uNSA1LTJjLjcxLS44NC43LTIuMTMtLjA5LTIuOTFhMi4xOCAyLjE4IDAgMCAwLTIuOTEtLjA5Ii8%2BPHBhdGggZD0iTTkgMTJhMjIgMjIgMCAwIDEgMi0zLjk1QTEyLjg4IDEyLjg4IDAgMCAxIDIyIDJjMCAyLjcyLS43OCA3LjUtNiAxMWEyMi40IDIyLjQgMCAwIDEtNCAyeiIvPjxwYXRoIGQ9Ik05IDEySDRzLjU1LTMuMDMgMi00YzEuNjItMS4wOCA1IC4wNSA1IC4wNSIvPjwvc3ZnPg%3D%3D&label=release&color=%23a6abe3"></a>
 </p>
 
 #### ⚡ Requirements:
 
 **OS:** 64-bit: Windows, Linux, MacOS is supported but builds are not provided;
 
-[All releases & changelog](https://github.com/aleksey-hoffman/sigma-file-manager/releases)
+[All releases & changelog](https://github.com/wstaery/sigma-file-manager-wstaery/releases)
 
 
 <table>
@@ -127,26 +139,9 @@ The funding will be used for funding the development of this and my other big pr
   </thead>
   <tbody>
     <tr>
-      <td>Windows | Winget</td>
-      <td width="320px">
-        <code>winget install sfm</code>
-      </td>
-    </tr>
-    <tr>
-      <td>Windows | Microsoft store</td>
-      <td>
-        <!-- <a target="_blank" href="https://www.microsoft.com/store/productId/9N7W62ND0NF9">
-          <img src="https://github.com/aleksey-hoffman/sigma-file-manager/raw/main/.github/media/get-from-microsoft.png" width="140px">
-        </a> -->
-        <a href="https://apps.microsoft.com/detail/9n7w62nd0nf9?referrer=appbadge&mode=full" target="_blank"  rel="noopener noreferrer">
-        	<img src="https://get.microsoft.com/images/en-us%20dark.svg" width="200"/>
-        </a>
-      </td>
-    </tr>
-    <tr>
       <td>Windows | Unsigned installable (might see antivirus errors)</td>
       <td>
-        <a target="_blank" href="https://github.com/aleksey-hoffman/sigma-file-manager/releases/latest">
+        <a target="_blank" href="https://github.com/wstaery/sigma-file-manager-wstaery/releases/latest">
           Installable (.exe)
         </a>
       </td>
@@ -154,7 +149,7 @@ The funding will be used for funding the development of this and my other big pr
     <tr>
       <td>Linux | Portable (experimental)</td>
       <td>
-        <a target="_blank" href="https://github.com/aleksey-hoffman/sigma-file-manager/releases/latest">
+        <a target="_blank" href="https://github.com/wstaery/sigma-file-manager-wstaery/releases/latest">
           Portable (.AppImage)
         </a>
       </td>
@@ -162,7 +157,7 @@ The funding will be used for funding the development of this and my other big pr
     <tr>
       <td>Linux | Flatpak</td>
       <td>
-        <a target="_blank" href="https://github.com/aleksey-hoffman/sigma-file-manager/releases/latest">
+        <a target="_blank" href="https://github.com/wstaery/sigma-file-manager-wstaery/releases/latest">
           Installable (.flatpak)
         </a>
         <br>
@@ -170,20 +165,10 @@ The funding will be used for funding the development of this and my other big pr
       </td>
     </tr>
     <tr>
-      <td>Linux | Snapcraft </td>
-      <td>
-        <a href="https://snapcraft.io/sigma-file-manager">
-          <img alt="Get it from the Snap Store" src=https://snapcraft.io/en/dark/install.svg />
-        </a>
-        <br>
-        <code>sudo snap install sigma-file-manager --edge</code>
-      </td>
-    </tr>
-    <tr>
       <td>If there's no compiled binary for your MacOS, Linux distro, you can build the app from the source code yourself
       </td>
       <td>
-        <a target="_blank" href="https://github.com/aleksey-hoffman/sigma-file-manager/blob/main/CONTRIBUTING.md">
+        <a target="_blank" href="https://github.com/wstaery/sigma-file-manager-wstaery/blob/main/CONTRIBUTING.md">
           See this guide
         </a>
       </td>
@@ -198,6 +183,8 @@ The funding will be used for funding the development of this and my other big pr
     </tr>
   </tbody>
 </table>
+
+> Note: the upstream channels (winget, Microsoft Store, Snap) distribute the original author's builds. Get this fork's builds from this repository's [Releases](https://github.com/wstaery/sigma-file-manager-wstaery/releases) page.
 
 ## For developers
 
