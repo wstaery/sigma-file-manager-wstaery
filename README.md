@@ -2,6 +2,7 @@
 
 - v2 moved from beta to stable stage
 - v2 became the main branch
+- **v2.4.0: new-tab button moved next to the navigator options, swap with the overflow counter when tabs no longer fit, and `Backspace` to go up one directory**
 - **v2.3.0: tab bar overflow counter, tab layout rework, and a Chinese translation aligned with Windows File Explorer terminology**
 
 <h1>
@@ -28,7 +29,7 @@ English | [简体中文](./README.zh-CN.md)
 #### Major features:
 
 - **Smart global search:** Finds files and folders in seconds (searches full `1TB` drive in ~2 seconds). Its typo correction system handles typos, wrong case, wrong word order, missing words, missing symbols, and missing file extension.
-- **Tabs:** Keep multiple directories open and switch between them instantly. When too many tabs are open to fit the header, a counter badge at the right end of the tab bar shows the total number of tabs and lists the extra tabs in a scrollable dropdown.
+- **Tabs:** Keep multiple directories open and switch between them instantly. When the tabs fit the header, a **New tab** button sits next to the navigator options; when too many tabs are open, a counter badge replaces it and lists the extra tabs in a scrollable dropdown.
 - **Split view:** Any tab can be splitted into 2 panes which you can navigate indipendently and transfer files between them easily.
 - **Extensions and marketplace:** Install extensions from the built-in marketplace or local folders. Extensions can add commands, pages, shortcuts, settings, and more.
 - **Default file manager:** On Windows, Sigma can replace File Explorer for most everyday file actions.
@@ -48,11 +49,13 @@ English | [简体中文](./README.zh-CN.md)
 - **Localization:** The app has translations for all most used languages, including a Chinese translation aligned with Windows File Explorer terminology. 
 - And more. Extensions provide additional features like video downloading (1000+ sites supported, including YouTube, Twitch, etc.), media converter, image size optimizer, etc.
 
-## What's new in this fork (v2.3.0)
+## What's new in this fork (v2.4.0)
 
 This repository builds on [aleksey-hoffman/sigma-file-manager](https://github.com/aleksey-hoffman/sigma-file-manager) with the following improvements:
 
-- **Tab bar overflow counter:** when tabs no longer fit the header, a bordered counter badge at the right end shows the total number of open tabs. Tabs that do not fit collapse into its dropdown (with a scrollable list) in the order they were opened, and clicking one switches to it.
+- **New-tab button next to the navigator options:** when all tabs fit the header, the **New tab** (+) button sits to the left of the navigator options so the tab strip is never shortened by it. When the tabs no longer fit, the + button is hidden and replaced in the same place by the counter badge showing the total number of tabs, whose dropdown keeps **New tab** (`Ctrl+T`) pinned at the top.
+- **Backspace goes up one directory:** press `Backspace` in the navigator to open the parent directory, alongside `Alt+↑` and the ↑ toolbar button. Typing in inputs, open dialogs, and the item filter keep the normal Backspace behavior.
+- **Tab bar overflow counter:** when tabs no longer fit the header, a bordered counter badge shows the total number of open tabs. Tabs that do not fit collapse into its dropdown (with a scrollable list) in the order they were opened, and clicking one switches to it.
 - **Tab bar layout rework:** the first (oldest) tab is always fully visible and clickable; tab titles truncate with an ellipsis instead of being clipped; the command palette button moved from the left end of the window toolbar into the right-side action group so it no longer overlaps the first tab.
 - **Chinese translation:** aligned terminology with Windows File Explorer (驱动器, 回收站, 主文件夹, 右键菜单, 文件夹), fixed ~370 mistranslations and machine-translation artifacts, translated all remaining strings, and localized the settings search keywords.
 
