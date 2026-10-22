@@ -212,7 +212,6 @@ onBeforeUnmount(() => {
       @pointerdown.capture="handleToolbarPointerDown"
     >
       <LanShareReplaceDialog />
-      <CommandPaletteToolbarButton />
       <div class="window-toolbar-extension-embed-teleport-target" />
       <div class="window-toolbar-primary-teleport-target" />
       <Spacer class="window-toolbar-spacer" />
@@ -221,6 +220,7 @@ onBeforeUnmount(() => {
         <LanShareToolbarButton v-if="shouldShowNavigatorToolbarExtras" />
         <StatusCenterToolbarButton v-if="shouldShowNavigatorToolbarExtras" />
         <GlobalSearchToolbarButton v-if="shouldShowGlobalSearchButton" />
+        <CommandPaletteToolbarButton />
       </div>
       <WindowActions />
     </div>
@@ -241,13 +241,19 @@ onBeforeUnmount(() => {
 
 .window-toolbar-primary-teleport-target {
   display: flex;
-  max-width: 50%;
+  overflow: hidden;
+  min-width: 0;
+  flex: 1 1 auto;
+  align-items: center;
+  align-self: stretch;
 }
 
 @media (width <= 1024px) {
   .window-toolbar-primary-teleport-target {
     display: flex;
-    max-width: 30%;
+    overflow: hidden;
+    min-width: 0;
+    flex: 1 1 auto;
   }
 }
 
@@ -300,6 +306,7 @@ onBeforeUnmount(() => {
 
 .window-toolbar-action-layer > .window-toolbar-spacer {
   z-index: 4;
+  flex: 1 1 auto;
   -webkit-app-region: drag;
 }
 
@@ -311,7 +318,7 @@ onBeforeUnmount(() => {
   height: 100%;
   flex: 1 1 auto;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   -webkit-app-region: drag;
   gap: 8px;
   inset-inline-start: 0;

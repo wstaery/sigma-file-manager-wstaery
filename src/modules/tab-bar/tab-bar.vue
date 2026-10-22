@@ -5,7 +5,7 @@ Copyright © 2021 - present Aleksey Hoffman. All rights reserved.
 
 <script setup lang="ts">
 import {
-  ref, onBeforeUnmount, onMounted, computed, watch, nextTick,
+  ref, onMounted, computed, watch, nextTick,
 } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Tab, TabDraggable } from '.';
@@ -18,10 +18,10 @@ import {
 import { ContextMenuShortcut } from '@/components/ui/context-menu';
 import { useWorkspacesStore } from '@/stores/storage/workspaces';
 import { useShortcutsStore } from '@/stores/runtime/shortcuts';
-import { useHorizontalScrollFade } from '@/composables/use-horizontal-scroll-fade';
-import { getScrollLeftToRevealInFadedContainer } from '@/composables/get-scroll-left-to-reveal-in-faded-container';
 import type { Tab as TabType, TabGroup } from '@/types/workspaces';
 import { PlusIcon } from '@lucide/vue';
+import TabBarOverflowMenu from './tab-bar-overflow-menu.vue';
+import { useTabBarOverflow } from './use-tab-bar-overflow';
 
 const { t } = useI18n();
 
@@ -39,113 +39,79 @@ const shortcutsStore = useShortcutsStore();
 const tabGroupCount = computed(() => workspacesStore.currentWorkspace?.tabGroups?.length ?? 0);
 const teleportDisabled = computed(() => !props.teleportTarget);
 const teleportTo = computed(() => props.teleportTarget || 'body');
-const { openNewTabGroup, closeTabGroup, setTabs } = workspacesStore;
+const { openNewTabGroup, openTabGroup, closeTabGroup, setTabs } = workspacesStore;
 
 const previewEnabled = ref(true);
+const isOverflowMenuOpen = ref(false);
 const scrollContainerRef = ref<HTMLElement | null>(null);
 const scrollContentRef = ref<HTMLElement | null>(null);
-let scrollDisableTimeoutId: number | null = null;
-const { fadeWidth, scrollFadeClass, scrollFadeStyle, updateScrollFade } = useHorizontalScrollFade(scrollContainerRef, {
+
+const tabGroups = computed(() => workspacesStore.currentWorkspace?.tabGroups ?? []);
+
+const {
+  visibleTabCount,
+  hiddenTabGroupIndexes,
+  updateTabBarOverflow,
+} = useTabBarOverflow({
+  scrollContainerRef,
   scrollContentRef,
+  tabGroups,
 });
 
-watch(tabGroupCount, (newCount, previousCount) => {
-  nextTick(() => {
-    if (previousCount !== undefined && newCount > previousCount) {
-      scrollTabBarToEnd();
-      return;
-    }
+const isOverflowing = computed(() => hiddenTabGroupIndexes.value.length > 0);
 
-    updateScrollFade();
-  });
-});
-
-watch(
-  () => workspacesStore.currentTabGroup?.[0]?.id,
-  (currentTabId, previousTabId) => {
-    if (!currentTabId || currentTabId === previousTabId) {
-      return;
-    }
-
-    scrollSelectedTabGroupIntoView();
-  },
-);
-
-function handleScrollActivity() {
-  previewEnabled.value = false;
-
-  if (scrollDisableTimeoutId !== null) {
-    clearTimeout(scrollDisableTimeoutId);
+const visibleTabGroups = computed(() => {
+  if (!Number.isFinite(visibleTabCount.value)) {
+    return tabGroups.value;
   }
 
-  scrollDisableTimeoutId = window.setTimeout(() => {
-    previewEnabled.value = true;
-  }, 200);
-}
+  return tabGroups.value.slice(0, visibleTabCount.value);
+});
 
-function handleWheel(event: WheelEvent) {
-  const container = scrollContainerRef.value;
-  if (!container) return;
-  container.scrollLeft += event.deltaY || event.deltaX || 0;
-  handleScrollActivity();
-}
-
-function onScroll() {
-  handleScrollActivity();
-  updateScrollFade();
-}
-
-function scrollTabBarToEnd() {
+watch(tabGroupCount, () => {
   nextTick(() => {
-    const container = scrollContainerRef.value;
-    if (!container) return;
-
-    container.scrollTo({
-      left: container.scrollWidth - container.clientWidth,
-      behavior: 'smooth',
-    });
-
-    updateScrollFade();
+    updateTabBarOverflow();
   });
+});
+
+watch(isOverflowing, (overflowing) => {
+  if (!overflowing) {
+    isOverflowMenuOpen.value = false;
+  }
+});
+
+watch(isOverflowMenuOpen, (isOpen) => {
+  if (!isOpen) {
+    return;
+  }
+
+  updateTabBarOverflow();
+});
+
+function handleOverflowTabSelect(tabGroup: TabGroup) {
+  isOverflowMenuOpen.value = false;
+  openTabGroup(tabGroup);
 }
 
-function scrollSelectedTabGroupIntoView() {
-  nextTick(() => {
-    const container = scrollContainerRef.value;
-    const selectedTab = container?.querySelector('.tab[is-active="true"]');
+async function handleOverflowAddTab() {
+  isOverflowMenuOpen.value = false;
+  await openNewTabGroup();
+}
 
-    if (!container || !(selectedTab instanceof HTMLElement)) {
-      return;
-    }
+function handleDragStart() {
+  previewEnabled.value = false;
+}
 
-    const elementOffsetLeft = selectedTab.getBoundingClientRect().left
-      - container.getBoundingClientRect().left
-      + container.scrollLeft;
+function handleDragEnd() {
+  previewEnabled.value = true;
+}
 
-    container.scrollTo({
-      left: getScrollLeftToRevealInFadedContainer({
-        containerScrollLeft: container.scrollLeft,
-        containerClientWidth: container.clientWidth,
-        containerScrollWidth: container.scrollWidth,
-        elementOffsetLeft,
-        elementWidth: selectedTab.offsetWidth,
-        fadeWidth,
-      }),
-      behavior: 'instant',
-    });
-
-    updateScrollFade();
-  });
+function handleTabsSet(nextTabGroups: TabGroup[]) {
+  setTabs(nextTabGroups);
 }
 
 onMounted(() => {
-  scrollSelectedTabGroupIntoView();
-});
-
-onBeforeUnmount(() => {
-  if (scrollDisableTimeoutId !== null) {
-    clearTimeout(scrollDisableTimeoutId);
-  }
+  updateTabBarOverflow();
 });
 </script>
 
@@ -161,22 +127,18 @@ onBeforeUnmount(() => {
       <div
         ref="scrollContainerRef"
         class="tab-bar__base-container"
-        :class="scrollFadeClass"
-        :style="scrollFadeStyle"
-        @wheel.prevent="handleWheel"
-        @scroll="onScroll"
       >
         <div
           ref="scrollContentRef"
           class="tab-bar__base"
         >
           <TabDraggable
-            :items="workspacesStore.currentWorkspace?.tabGroups || []"
+            :items="visibleTabGroups"
             :draggable-bg-color-var="'window-toolbar-color'"
             parent-selector=".tab-bar"
-            @set="setTabs($event as TabGroup[])"
-            @drag-start="previewEnabled = false"
-            @drag-end="previewEnabled = true"
+            @set="handleTabsSet($event as TabGroup[])"
+            @drag-start="handleDragStart"
+            @drag-end="handleDragEnd"
           >
             <template #item="{ item }">
               <Tab
@@ -195,6 +157,7 @@ onBeforeUnmount(() => {
             class="tab-bar__add-tab-button"
             variant="ghost"
             size="xs"
+            :aria-label="t('tabs.newTab')"
             @click="openNewTabGroup()"
           >
             <PlusIcon :size="14" />
@@ -213,6 +176,16 @@ onBeforeUnmount(() => {
           </div>
         </TooltipContent>
       </Tooltip>
+
+      <TabBarOverflowMenu
+        v-if="isOverflowing"
+        v-model:open="isOverflowMenuOpen"
+        :tab-groups="tabGroups"
+        :active-tab-group="workspacesStore.currentTabGroup"
+        :hidden-tab-group-indexes="hiddenTabGroupIndexes"
+        @select="handleOverflowTabSelect"
+        @add-tab="handleOverflowAddTab"
+      />
     </div>
   </Teleport>
 </template>
@@ -225,6 +198,9 @@ onBeforeUnmount(() => {
 
 .tab-bar {
   display: flex;
+  overflow: hidden;
+  width: 100%;
+  min-width: 0;
   max-width: 100%;
   height: 100%;
   align-items: center;
@@ -233,20 +209,24 @@ onBeforeUnmount(() => {
 
 .tab-bar__base-container {
   display: flex;
-  overflow: auto;
+  overflow: hidden;
+  min-width: 0;
+  flex: 1 1 auto;
   align-items: center;
-  scrollbar-width: none;
+  justify-content: flex-start;
 }
 
 .tab-bar__base {
   display: flex;
-  width: fit-content;
+  width: max-content;
   height: calc(var(--window-toolbar-height) - 4px);
+  flex: 0 0 auto;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .tab-bar__add-tab-button {
+  flex-shrink: 0;
   color: hsl(var(--muted-foreground));
 }
 
@@ -270,7 +250,7 @@ onBeforeUnmount(() => {
 }
 
 .tab-bar--compact .tab-bar__base-container {
-  overflow: auto hidden;
+  overflow: hidden;
   min-width: 0;
   flex: 1;
 }

@@ -11,7 +11,8 @@ import { useWorkspacesStore } from '@/stores/storage/workspaces';
 import { useUserSettingsStore } from '@/stores/storage/user-settings';
 import type { Tab } from '@/types/workspaces';
 import { CopyPlusIcon, Layers, XIcon, XLineTopIcon } from '@lucide/vue';
-import { getPathDisplayName, getPathDisplayValue } from '@/utils/normalize-path';
+import { getPathDisplayValue } from '@/utils/normalize-path';
+import { getTabDisplayName, getTabGroupDisplayName } from '../tab-display-name';
 import {
   Tooltip,
   TooltipContent,
@@ -123,24 +124,11 @@ const { start: startDragHoverOpenTimer, stop: stopDragHoverOpenTimer } = useTime
   workspacesStore.openTabGroup(props.tabGroup);
 }, TAB_DRAG_HOVER_OPEN_DELAY, { immediate: false });
 
-function getTabDisplayName(tab: Tab | undefined): string {
-  if (!tab) {
-    return '';
-  }
-
-  return getPathDisplayName(tab.path, t) || getPathDisplayName(tab.name, t) || tab.name || tab.path;
+function getTabName(tab: Tab | undefined): string {
+  return getTabDisplayName(tab, t);
 }
 
-const tabName = computed(() => {
-  const firstTab = props.tabGroup?.[0];
-  const secondTab = props.tabGroup?.[1];
-
-  if (props.tabGroup?.length === 2 && secondTab) {
-    return `${getTabDisplayName(firstTab)} | ${getTabDisplayName(secondTab)}`;
-  }
-
-  return getTabDisplayName(firstTab);
-});
+const tabName = computed(() => getTabGroupDisplayName(props.tabGroup, t));
 
 function tabOnClick(tabGroup: Tab[]) {
   if (isLongPressing.value) {
@@ -326,7 +314,7 @@ onBeforeUnmount(() => {
             :key="index"
           >
             <div class="tab__tooltip-title">
-              {{ getTabDisplayName(tab) }}
+              {{ getTabName(tab) }}
             </div>
             <div class="tab__tooltip-subtitle">
               {{ getPathDisplayValue(tab.path) }}
@@ -347,14 +335,14 @@ onBeforeUnmount(() => {
   min-width: 0;
   height: var(--tab-height);
   align-items: center;
-  padding: 0 10px;
-  padding-right: 4px;
+  padding: 0 4px 0 10px;
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
   -webkit-app-region: no-drag;
   background-color: transparent;
   color: hsl(var(--muted-foreground));
   cursor: pointer;
+  gap: 4px;
   opacity: 0.9;
   user-select: none;
 }
@@ -398,18 +386,19 @@ onBeforeUnmount(() => {
 
 .tab__title {
   overflow: hidden;
-  width: calc(100% - 24px);
+  min-width: 0;
+  flex: 1 1 auto;
   font-size: 12px;
-  text-overflow: clip;
+  text-align: start;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .tab__close-button {
-  position: absolute;
-  right: 3px;
   display: flex;
   width: 24px;
   height: 24px;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   border: none;
