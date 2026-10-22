@@ -1107,7 +1107,18 @@ function handleNavigateHistoryForwardShortcut(): boolean {
   return callActivePaneMethod('goForward');
 }
 
-function handleGoUpDirectoryShortcut(): boolean {
+function handleGoUpDirectoryShortcut(event?: KeyboardEvent | MouseEvent): boolean {
+  const pane = getActivePaneRef();
+
+  if (
+    event instanceof KeyboardEvent
+    && event.key === 'Backspace'
+    && pane?.isFilterOpen
+  ) {
+    // Let the open filter consume Backspace to delete its query instead.
+    return false;
+  }
+
   return callActivePaneMethod('navigateToParent');
 }
 
@@ -1170,7 +1181,7 @@ function registerShortcutHandlers() {
   shortcutsStore.registerHandler('openSelected', () => callActivePaneMethod('openSelected'), { checkItemSelected: hasSelectedItems });
   shortcutsStore.registerHandler('navigateHistoryBack', handleNavigateHistoryBackShortcut);
   shortcutsStore.registerHandler('navigateHistoryForward', handleNavigateHistoryForwardShortcut);
-  shortcutsStore.registerHandler('goUpDirectory', handleGoUpDirectoryShortcut);
+  shortcutsStore.registerHandler('goUpDirectory', event => handleGoUpDirectoryShortcut(event));
   shortcutsStore.registerHandler('switchToLeftPane', () => switchToPane(0));
   shortcutsStore.registerHandler('switchToRightPane', () => switchToPane(1));
   shortcutsStore.registerHandler('toggleSplitView', () => {

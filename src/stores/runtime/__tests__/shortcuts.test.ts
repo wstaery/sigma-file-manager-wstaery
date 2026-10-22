@@ -269,7 +269,7 @@ describe('shortcuts store', () => {
     expect(backEvent.defaultPrevented).toBe(false);
   });
 
-  it('matches Alt+arrow shortcuts for navigator pane navigation', async () => {
+  it('matches Alt+arrow and Backspace shortcuts for navigator pane navigation', async () => {
     const shortcutsStore = useShortcutsStore();
     const navigateHistoryBackHandler = vi.fn();
     const navigateHistoryForwardHandler = vi.fn();
@@ -300,16 +300,24 @@ describe('shortcuts store', () => {
       bubbles: true,
       cancelable: true,
     });
+    const backspaceEvent = new KeyboardEvent('keydown', {
+      key: 'Backspace',
+      code: 'Backspace',
+      bubbles: true,
+      cancelable: true,
+    });
 
     await expect(shortcutsStore.handleKeydown(backEvent)).resolves.toBe(true);
     await expect(shortcutsStore.handleKeydown(forwardEvent)).resolves.toBe(true);
     await expect(shortcutsStore.handleKeydown(upEvent)).resolves.toBe(true);
+    await expect(shortcutsStore.handleKeydown(backspaceEvent)).resolves.toBe(true);
     expect(navigateHistoryBackHandler).toHaveBeenCalledTimes(1);
     expect(navigateHistoryForwardHandler).toHaveBeenCalledTimes(1);
-    expect(goUpDirectoryHandler).toHaveBeenCalledTimes(1);
+    expect(goUpDirectoryHandler).toHaveBeenCalledTimes(2);
     expect(backEvent.defaultPrevented).toBe(true);
     expect(forwardEvent.defaultPrevented).toBe(true);
     expect(upEvent.defaultPrevented).toBe(true);
+    expect(backspaceEvent.defaultPrevented).toBe(true);
   });
 
   it('matches Shift+arrow file navigation so range selection can extend', async () => {

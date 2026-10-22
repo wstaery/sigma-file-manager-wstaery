@@ -712,6 +712,21 @@ const DEFAULT_SHORTCUTS: ShortcutDefinition[] = [
     isReadOnly: false,
   },
   {
+    id: 'goUpDirectory',
+    bindingSlot: 1,
+    alternateChordRow: true,
+    labelKey: 'shortcuts.goUpDirectory',
+    defaultKeys: {
+      key: 'Backspace',
+    },
+    scope: 'navigator',
+    conditions: {
+      inputFieldIsActive: false,
+      dialogIsOpened: false,
+    },
+    isReadOnly: false,
+  },
+  {
     id: 'switchToLeftPane',
     labelKey: 'shortcuts.switchToLeftPane',
     defaultKeys: {
