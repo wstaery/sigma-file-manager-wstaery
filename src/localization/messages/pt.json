@@ -83,7 +83,9 @@
     "closeAllTabs": "Fechar todas as guias",
     "defaultTabOpened": "Guia padrão foi aberta",
     "closedTabRestored": "Guia fechada restaurada",
-    "noClosedTabsToRestore": "Nenhuma guia fechada para restaurar"
+    "noClosedTabsToRestore": "Nenhuma guia fechada para restaurar",
+    "showHiddenTabs": "Show hidden tabs and new tab",
+    "hiddenTabs": "Hidden tabs"
   },
   "splitView": "Visualização dividida",
   "splitViewMode": "Modo de visualização dividida",

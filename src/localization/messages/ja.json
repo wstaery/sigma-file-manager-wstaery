@@ -83,7 +83,9 @@
     "closeAllTabs": "すべてのタブを閉じる",
     "defaultTabOpened": "デフォルトタブが開きました",
     "closedTabRestored": "閉じたタブを復元しました",
-    "noClosedTabsToRestore": "復元できる閉じたタブはありません"
+    "noClosedTabsToRestore": "復元できる閉じたタブはありません",
+    "showHiddenTabs": "Show hidden tabs and new tab",
+    "hiddenTabs": "Hidden tabs"
   },
   "splitView": "分割表示",
   "splitViewMode": "分割表示モード",

@@ -83,7 +83,9 @@
     "closeAllTabs": "Đóng tất cả thẻ",
     "defaultTabOpened": "Đã mở thẻ mặc định",
     "closedTabRestored": "Đã khôi phục thẻ đã đóng",
-    "noClosedTabsToRestore": "Không có thẻ đã đóng nào để khôi phục"
+    "noClosedTabsToRestore": "Không có thẻ đã đóng nào để khôi phục",
+    "showHiddenTabs": "Show hidden tabs and new tab",
+    "hiddenTabs": "Hidden tabs"
   },
   "splitView": "Chế độ chia màn hình",
   "splitViewMode": "Chế độ chia màn hình",

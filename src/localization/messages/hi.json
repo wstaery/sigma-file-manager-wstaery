@@ -83,7 +83,9 @@
     "closeAllTabs": "सभी टैब को बंद करें",
     "defaultTabOpened": "डिफ़ॉल्ट टैब खोला गया था",
     "closedTabRestored": "बंद टैब पुनर्स्थापित किया गया",
-    "noClosedTabsToRestore": "पुनर्स्थापित करने के लिए कोई बंद टैब नहीं"
+    "noClosedTabsToRestore": "पुनर्स्थापित करने के लिए कोई बंद टैब नहीं",
+    "showHiddenTabs": "Show hidden tabs and new tab",
+    "hiddenTabs": "Hidden tabs"
   },
   "splitView": "भाजित दृश्य",
   "splitViewMode": "भाजित दृश्य मोड",

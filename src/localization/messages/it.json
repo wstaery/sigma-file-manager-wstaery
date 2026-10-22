@@ -83,7 +83,9 @@
     "closeAllTabs": "Chiudi tutte le schede",
     "defaultTabOpened": "La scheda predefinita è stata aperta",
     "closedTabRestored": "Scheda chiusa ripristinata",
-    "noClosedTabsToRestore": "Nessuna scheda chiusa da ripristinare"
+    "noClosedTabsToRestore": "Nessuna scheda chiusa da ripristinare",
+    "showHiddenTabs": "Show hidden tabs and new tab",
+    "hiddenTabs": "Hidden tabs"
   },
   "splitView": "Vista divisa",
   "splitViewMode": "Modalità vista divisa",

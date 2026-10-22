@@ -83,7 +83,9 @@
     "closeAllTabs": "Close all tabs",
     "defaultTabOpened": "Default tab was opened",
     "closedTabRestored": "Closed tab restored",
-    "noClosedTabsToRestore": "No closed tabs to restore"
+    "noClosedTabsToRestore": "No closed tabs to restore",
+    "showHiddenTabs": "Show hidden tabs and new tab ({count} tabs open)",
+    "hiddenTabs": "Hidden tabs"
   },
   "splitView": "Split view",
   "splitViewMode": "Split view mode",

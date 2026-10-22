@@ -83,7 +83,9 @@
     "closeAllTabs": "Zapri vse zavihke",
     "defaultTabOpened": "Privzeti zavihek je bil odprt",
     "closedTabRestored": "Zaprt zavihek je bil obnovljen",
-    "noClosedTabsToRestore": "Ni zaprtih zavihkov za obnovitev"
+    "noClosedTabsToRestore": "Ni zaprtih zavihkov za obnovitev",
+    "showHiddenTabs": "Show hidden tabs and new tab",
+    "hiddenTabs": "Hidden tabs"
   },
   "splitView": "Razdeljen pogled",
   "splitViewMode": "Način razdeljenega pogleda",

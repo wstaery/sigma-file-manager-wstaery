@@ -83,7 +83,9 @@
     "closeAllTabs": "Закрыть все вкладки",
     "defaultTabOpened": "Открыта вкладка по умолчанию",
     "closedTabRestored": "Закрытая вкладка восстановлена",
-    "noClosedTabsToRestore": "Нет закрытых вкладок для восстановления"
+    "noClosedTabsToRestore": "Нет закрытых вкладок для восстановления",
+    "showHiddenTabs": "Show hidden tabs and new tab",
+    "hiddenTabs": "Hidden tabs"
   },
   "splitView": "Разделённый вид",
   "splitViewMode": "Режим разделённого вида",

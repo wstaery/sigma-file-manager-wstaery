@@ -83,7 +83,9 @@
     "closeAllTabs": "Tüm sekmeleri kapat",
     "defaultTabOpened": "Varsayılan sekme açıldı",
     "closedTabRestored": "Kapatılan sekme geri yüklendi",
-    "noClosedTabsToRestore": "Geri yüklenecek kapatılmış sekme yok"
+    "noClosedTabsToRestore": "Geri yüklenecek kapatılmış sekme yok",
+    "showHiddenTabs": "Show hidden tabs and new tab",
+    "hiddenTabs": "Hidden tabs"
   },
   "splitView": "Bölünmüş görünüm",
   "splitViewMode": "Bölünmüş görünüm modu",

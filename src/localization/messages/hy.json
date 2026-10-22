@@ -83,7 +83,9 @@
     "closeAllTabs": "Փակել բոլոր թաբերը",
     "defaultTabOpened": "Բացվեց լռելյայն թաբը",
     "closedTabRestored": "Թաբը վերաբացվեց",
-    "noClosedTabsToRestore": "Փակված թաբ չկա վերաբացելու համար"
+    "noClosedTabsToRestore": "Փակված թաբ չկա վերաբացելու համար",
+    "showHiddenTabs": "Show hidden tabs and new tab",
+    "hiddenTabs": "Hidden tabs"
   },
   "splitView": "Կիսված տեսք",
   "splitViewMode": "Կիսված տեսքի ռեժիմ",

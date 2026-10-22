@@ -83,7 +83,9 @@
     "closeAllTabs": "סגור את כל הלשוניות",
     "defaultTabOpened": "נפתחה לשונית ברירת המחדל",
     "closedTabRestored": "הלשונית שנסגרה שוחזרה",
-    "noClosedTabsToRestore": "אין לשוניות סגורות לשחזור"
+    "noClosedTabsToRestore": "אין לשוניות סגורות לשחזור",
+    "showHiddenTabs": "Show hidden tabs and new tab",
+    "hiddenTabs": "Hidden tabs"
   },
   "splitView": "תצוגה מפוצלת",
   "splitViewMode": "מצב תצוגה מפוצלת",

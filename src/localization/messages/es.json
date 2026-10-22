@@ -83,7 +83,9 @@
     "closeAllTabs": "Cerrar todas las pestañas",
     "defaultTabOpened": "Se abrió la pestaña predeterminada",
     "closedTabRestored": "Pestaña cerrada restaurada",
-    "noClosedTabsToRestore": "No hay pestañas cerradas para restaurar"
+    "noClosedTabsToRestore": "No hay pestañas cerradas para restaurar",
+    "showHiddenTabs": "Show hidden tabs and new tab",
+    "hiddenTabs": "Hidden tabs"
   },
   "splitView": "Vista dividida",
   "splitViewMode": "Modo de vista dividida",

@@ -83,7 +83,9 @@
     "closeAllTabs": "Alle Tabs schließen",
     "defaultTabOpened": "Standard-Tab wurde geöffnet",
     "closedTabRestored": "Geschlossener Tab wiederhergestellt",
-    "noClosedTabsToRestore": "Keine geschlossenen Tabs zum Wiederherstellen"
+    "noClosedTabsToRestore": "Keine geschlossenen Tabs zum Wiederherstellen",
+    "showHiddenTabs": "Show hidden tabs and new tab",
+    "hiddenTabs": "Hidden tabs"
   },
   "splitView": "Geteilte Ansicht",
   "splitViewMode": "Geteilte Ansicht-Modus",

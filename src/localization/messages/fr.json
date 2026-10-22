@@ -83,7 +83,9 @@
     "closeAllTabs": "Fermer tous les onglets",
     "defaultTabOpened": "L'onglet par défaut a été ouvert",
     "closedTabRestored": "Onglet fermé restauré",
-    "noClosedTabsToRestore": "Aucun onglet fermé à restaurer"
+    "noClosedTabsToRestore": "Aucun onglet fermé à restaurer",
+    "showHiddenTabs": "Show hidden tabs and new tab",
+    "hiddenTabs": "Hidden tabs"
   },
   "splitView": "Vue partagée",
   "splitViewMode": "Mode vue partagée",

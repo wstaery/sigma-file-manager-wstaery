@@ -83,7 +83,9 @@
     "closeAllTabs": "بستن همه برگه ها",
     "defaultTabOpened": "برگه پیش‌فرض باز شد",
     "closedTabRestored": "برگه بسته‌شده بازیابی شد",
-    "noClosedTabsToRestore": "برگه بسته‌شده‌ای برای بازیابی وجود ندارد"
+    "noClosedTabsToRestore": "برگه بسته‌شده‌ای برای بازیابی وجود ندارد",
+    "showHiddenTabs": "Show hidden tabs and new tab",
+    "hiddenTabs": "Hidden tabs"
   },
   "filter": {
     "filter": "فیلتر",
