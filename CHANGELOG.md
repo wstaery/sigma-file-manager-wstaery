@@ -1,5 +1,31 @@
 # Changelog
 
+## [2.4.0] - October 2026
+
+**Summary:** New-tab button moved next to the navigator options and replaced by the overflow counter when tabs no longer fit, plus `Backspace` to go up one directory.
+
+- [Improvements](#improvements-2-4-0)
+  - [Tab Bar New-Tab Button](#tab-bar-new-tab-button)
+- [New Shortcuts](#new-shortcuts-2-4-0)
+  - [Go Up One Directory With Backspace](#go-up-one-directory-with-backspace)
+
+### Improvements
+
+#### Tab Bar New-Tab Button
+
+- The **New tab** (+) button now sits to the left of the navigator options button, leaving the whole tab strip for tabs;
+- When the open tabs no longer fit the header, the + button is hidden and replaced in the same position by the bordered counter badge showing the total number of tabs;
+- The counter badge keeps **New tab** (`Ctrl+T`) pinned at the top of its dropdown, followed by the scrollable list of hidden tabs;
+- The control slot keeps a fixed width when the two controls swap, so the tab strip width and the overflow calculation do not jump between states.
+
+### New Shortcuts
+
+#### Go Up One Directory With Backspace
+
+- `Backspace` now opens the parent directory in the navigator, alongside the existing `Alt+↑` shortcut and the ↑ toolbar button;
+- The shortcut stays out of the way while typing in an input, while a dialog is open, and while the item filter is open, so `Backspace` keeps its normal text-editing behavior there;
+- Both bindings are listed under `Settings > Shortcuts` and can be customized.
+
 ## [2.3.0] - October 2026
 
 **Summary:** Tab bar overflow counter, tab layout rework, and a complete Chinese translation aligned with Windows File Explorer terminology.
